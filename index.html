@@ -1,0 +1,1142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Swathi Enterprises | Natural Stone & Paver Manufacturer</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Barlow:wght@300;400;500;600&family=Barlow+Condensed:wght@600;700&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --gold: #D4A017;
+    --gold-light: #F0C040;
+    --gold-dark: #A07810;
+    --black: #0A0A0A;
+    --charcoal: #1A1A1A;
+    --stone: #2C2C2C;
+    --warm-white: #F8F4EF;
+    --gray-soft: #E8E4DF;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Barlow', sans-serif;
+    background: var(--warm-white);
+    color: var(--black);
+    overflow-x: hidden;
+  }
+
+  /* CUSTOM CURSOR — desktop only */
+  @media (pointer: fine) {
+    body { cursor: none; }
+    a, button { cursor: none; }
+  }
+  .cursor {
+    width: 12px; height: 12px;
+    background: var(--gold);
+    border-radius: 50%;
+    position: fixed; top: 0; left: 0;
+    pointer-events: none; z-index: 9999;
+    transform: translate(-50%, -50%);
+    transition: transform 0.1s ease, width 0.3s, height 0.3s, background 0.3s;
+    mix-blend-mode: difference;
+    display: none;
+  }
+  .cursor-follower {
+    width: 36px; height: 36px;
+    border: 1.5px solid var(--gold);
+    border-radius: 50%;
+    position: fixed; top: 0; left: 0;
+    pointer-events: none; z-index: 9998;
+    transform: translate(-50%, -50%);
+    transition: transform 0.18s ease, width 0.3s, height 0.3s, opacity 0.3s;
+    opacity: 0.6;
+    display: none;
+  }
+  @media (pointer: fine) {
+    .cursor, .cursor-follower { display: block; }
+  }
+
+  h1, h2, h3 { font-family: 'Playfair Display', serif; }
+
+  /* NAV */
+  nav {
+    background: rgba(10,10,10,0.92);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    position: fixed; width: 100%; z-index: 100;
+    border-bottom: 1px solid rgba(212,160,23,0.15);
+    transition: all 0.4s ease;
+  }
+  nav.scrolled {
+    background: rgba(10,10,10,0.98);
+    border-bottom-color: rgba(212,160,23,0.35);
+  }
+  .nav-inner {
+    max-width: 1400px; margin: 0 auto;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 18px 40px;
+  }
+  .nav-logo { display: flex; align-items: center; gap: 14px; }
+  .nav-logo img { height: 42px; width: auto; filter: drop-shadow(0 0 8px rgba(212,160,23,0.4)); }
+  .nav-brand {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem; font-weight: 900;
+    color: var(--gold);
+    letter-spacing: 0.02em;
+  }
+  .nav-links { display: flex; gap: 36px; list-style: none; }
+  .nav-links a {
+    color: rgba(255,255,255,0.75);
+    text-decoration: none;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.85rem; font-weight: 600;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    position: relative; transition: color 0.3s;
+  }
+  .nav-links a::after {
+    content: ''; position: absolute; bottom: -4px; left: 0;
+    width: 0; height: 1.5px; background: var(--gold);
+    transition: width 0.3s ease;
+  }
+  .nav-links a:hover { color: var(--gold); }
+  .nav-links a:hover::after { width: 100%; }
+  .nav-cta {
+    background: transparent;
+    border: 1.5px solid var(--gold);
+    color: var(--gold);
+    padding: 10px 28px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700; font-size: 0.82rem;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    transition: all 0.3s;
+    clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
+  }
+  .nav-cta:hover {
+    background: var(--gold); color: var(--black);
+    box-shadow: 0 0 24px rgba(212,160,23,0.4);
+  }
+  /* Hamburger */
+  .hamburger {
+    display: none; flex-direction: column; gap: 5px;
+    background: none; border: none; padding: 6px; cursor: pointer;
+  }
+  .hamburger span {
+    display: block; width: 24px; height: 2px;
+    background: var(--gold); border-radius: 2px;
+    transition: all 0.3s ease;
+  }
+  .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .hamburger.open span:nth-child(2) { opacity: 0; }
+  .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+  /* Mobile drawer */
+  .mobile-nav {
+    display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(10,10,10,0.97);
+    z-index: 90; flex-direction: column;
+    align-items: center; justify-content: center; gap: 32px;
+  }
+  .mobile-nav.open { display: flex; }
+  .mobile-nav a {
+    color: rgba(255,255,255,0.75); text-decoration: none;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 1.6rem; font-weight: 700;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    transition: color 0.3s;
+  }
+  .mobile-nav a:hover { color: var(--gold); }
+
+  /* HERO */
+  .hero {
+    position: relative; height: 100vh;
+    display: flex; align-items: center; justify-content: center;
+    overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute; inset: 0;
+    background: var(--black);
+  }
+  .hero-bg img {
+    width: 100%; height: 100%; object-fit: cover;
+    opacity: 0.35;
+    transform: scale(1.08);
+    animation: heroZoom 18s ease-in-out infinite alternate;
+  }
+  @keyframes heroZoom {
+    from { transform: scale(1.08); }
+    to { transform: scale(1.15); }
+  }
+  .hero-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(135deg, rgba(10,10,10,0.85) 0%, rgba(10,10,10,0.4) 50%, rgba(10,10,10,0.85) 100%);
+  }
+  /* Grain texture */
+  .hero-grain {
+    position: absolute; inset: 0; opacity: 0.04;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-size: 200px;
+    pointer-events: none;
+  }
+  /* Decorative diagonal line */
+  .hero-line {
+    position: absolute; left: 8%; top: 0; bottom: 0; width: 1px;
+    background: linear-gradient(to bottom, transparent, rgba(212,160,23,0.5), transparent);
+    animation: lineFade 3s ease-in-out infinite alternate;
+  }
+  @keyframes lineFade { from { opacity: 0.3; } to { opacity: 0.8; } }
+
+  .hero-content {
+    position: relative; text-align: center;
+    max-width: 900px; padding: 0 40px;
+  }
+  .hero-eyebrow {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.78rem; font-weight: 700;
+    letter-spacing: 0.28em; text-transform: uppercase;
+    color: var(--gold);
+    opacity: 0; animation: fadeUp 0.8s 0.3s forwards ease;
+  }
+  .hero-title {
+    font-size: clamp(3.5rem, 8vw, 7rem);
+    font-weight: 900; line-height: 1;
+    color: white;
+    margin: 18px 0 22px;
+    opacity: 0; animation: fadeUp 0.9s 0.55s forwards ease;
+  }
+  .hero-title span { color: var(--gold); display: block; }
+  .hero-sub {
+    font-size: 1.1rem; font-weight: 300;
+    color: rgba(255,255,255,0.7);
+    letter-spacing: 0.04em; line-height: 1.7;
+    opacity: 0; animation: fadeUp 0.9s 0.75s forwards ease;
+  }
+  .hero-divider {
+    width: 60px; height: 2px;
+    background: var(--gold);
+    margin: 28px auto;
+    opacity: 0; animation: fadeUp 0.9s 0.9s forwards ease;
+  }
+  .hero-btns {
+    display: flex; gap: 20px; justify-content: center; margin-top: 36px;
+    flex-wrap: wrap; padding: 0 16px;
+    opacity: 0; animation: fadeUp 0.9s 1.05s forwards ease;
+  }
+  .btn-primary {
+    background: var(--gold); color: var(--black);
+    padding: 16px 40px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700; font-size: 0.85rem;
+    letter-spacing: 0.16em; text-transform: uppercase;
+    cursor: none; text-decoration: none;
+    clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px));
+    transition: all 0.3s; display: inline-block;
+    box-shadow: 0 0 0 rgba(212,160,23,0);
+  }
+  .btn-primary:hover {
+    background: var(--gold-light);
+    box-shadow: 0 8px 40px rgba(212,160,23,0.45);
+    transform: translateY(-2px);
+  }
+  .btn-outline {
+    border: 1.5px solid rgba(255,255,255,0.5); color: white;
+    padding: 16px 40px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700; font-size: 0.85rem;
+    letter-spacing: 0.16em; text-transform: uppercase;
+    cursor: none; text-decoration: none;
+    clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px));
+    transition: all 0.3s; display: inline-block;
+  }
+  .btn-outline:hover {
+    border-color: var(--gold); color: var(--gold);
+    box-shadow: 0 8px 30px rgba(212,160,23,0.2);
+    transform: translateY(-2px);
+  }
+  .hero-scroll {
+    position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%);
+    display: flex; flex-direction: column; align-items: center; gap: 8px;
+    opacity: 0; animation: fadeIn 1s 1.5s forwards;
+  }
+  .hero-scroll span {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.68rem; letter-spacing: 0.22em; text-transform: uppercase;
+    color: rgba(255,255,255,0.4);
+  }
+  .scroll-line {
+    width: 1px; height: 50px;
+    background: linear-gradient(to bottom, rgba(212,160,23,0.8), transparent);
+    animation: scrollPulse 2s ease-in-out infinite;
+  }
+  @keyframes scrollPulse {
+    0%, 100% { opacity: 0.4; transform: scaleY(1); }
+    50% { opacity: 1; transform: scaleY(1.2); }
+  }
+
+  /* STATS BAR */
+  .stats-bar {
+    background: var(--black);
+    border-top: 1px solid rgba(212,160,23,0.2);
+    border-bottom: 1px solid rgba(212,160,23,0.2);
+  }
+  .stats-inner {
+    max-width: 1400px; margin: 0 auto;
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    divide-x: 1px solid rgba(212,160,23,0.2);
+  }
+  .stat-item {
+    padding: 36px 40px;
+    text-align: center;
+    border-right: 1px solid rgba(212,160,23,0.15);
+    position: relative;
+    overflow: hidden;
+  }
+  .stat-item:last-child { border-right: none; }
+  .stat-item::before {
+    content: ''; position: absolute;
+    inset: 0; background: var(--gold);
+    transform: translateY(100%);
+    transition: transform 0.5s ease;
+  }
+  .stat-item:hover::before { transform: translateY(0); }
+  .stat-item:hover .stat-num { color: var(--black); }
+  .stat-item:hover .stat-label { color: var(--black); }
+  .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 3rem; font-weight: 900;
+    color: var(--gold);
+    position: relative; transition: color 0.3s;
+  }
+  .stat-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.78rem; font-weight: 600;
+    letter-spacing: 0.2em; text-transform: uppercase;
+    color: rgba(255,255,255,0.5);
+    margin-top: 6px; position: relative; transition: color 0.3s;
+  }
+
+  /* ABOUT */
+  .about { padding: 120px 40px; background: var(--warm-white); }
+  .about-inner {
+    max-width: 1400px; margin: 0 auto;
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 80px; align-items: center;
+  }
+  .about-img-wrap {
+    position: relative;
+  }
+  .about-img-wrap img {
+    width: 100%; max-width: 380px;
+    filter: grayscale(20%);
+    transition: filter 0.4s;
+  }
+  .about-img-wrap:hover img { filter: grayscale(0%); }
+  .about-img-accent {
+    position: absolute;
+    top: -20px; left: -20px;
+    width: 120px; height: 120px;
+    border: 2px solid var(--gold);
+    z-index: -1;
+    animation: accentFloat 4s ease-in-out infinite;
+  }
+  @keyframes accentFloat {
+    0%, 100% { transform: translate(0,0); }
+    50% { transform: translate(-6px, -6px); }
+  }
+  .about-img-accent2 {
+    position: absolute;
+    bottom: -20px; right: 60px;
+    width: 80px; height: 80px;
+    background: var(--gold); opacity: 0.12;
+  }
+  .section-tag {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.72rem; font-weight: 700;
+    letter-spacing: 0.28em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 16px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .section-tag::before {
+    content: ''; display: block;
+    width: 32px; height: 1.5px; background: var(--gold);
+  }
+  .section-title {
+    font-size: clamp(2rem, 3.5vw, 3rem);
+    font-weight: 900; line-height: 1.1;
+    color: var(--black); margin-bottom: 24px;
+  }
+  .section-body {
+    font-size: 1rem; line-height: 1.85;
+    color: #666; font-weight: 300; margin-bottom: 32px;
+  }
+
+  .proprietor {
+    font-size: 0.9rem; font-weight: 400;
+    color: #888; letter-spacing: 0.04em;
+    margin-top: -16px; margin-bottom: 8px;
+  }
+  .proprietor span { color: #555; font-weight: 600; }
+  .products { padding: 120px 40px; background: var(--charcoal); }
+  .products-inner { max-width: 1400px; margin: 0 auto; }
+  .section-header { text-align: center; margin-bottom: 70px; }
+  .section-header .section-tag { justify-content: center; }
+  .section-header .section-title { color: white; }
+  .products-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+  }
+  .product-card {
+    position: relative; overflow: hidden;
+    background: var(--stone);
+    aspect-ratio: 3/4;
+  }
+  .product-card img {
+    width: 100%; height: 100%; object-fit: cover;
+    transition: transform 0.7s ease, filter 0.5s;
+    filter: brightness(0.65) saturate(0.8);
+  }
+  .product-card:hover img {
+    transform: scale(1.08);
+    filter: brightness(0.5) saturate(0.6);
+  }
+  .product-info {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    padding: 28px 24px;
+    background: linear-gradient(to top, rgba(10,10,10,0.95) 0%, transparent 100%);
+    transform: translateY(0);
+    transition: padding 0.4s;
+  }
+  .product-card:hover .product-info { padding-bottom: 36px; }
+  .product-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem; font-weight: 700;
+    color: white; margin-bottom: 8px;
+  }
+  .product-desc {
+    font-size: 0.82rem; color: rgba(255,255,255,0.55);
+    line-height: 1.6; font-weight: 300;
+    max-height: 0; overflow: hidden;
+    transition: max-height 0.5s ease, opacity 0.4s;
+    opacity: 0;
+  }
+  .product-card:hover .product-desc { max-height: 80px; opacity: 1; }
+  /* Always show description on touch devices */
+  @media (hover: none) {
+    .product-desc { max-height: 80px; opacity: 1; }
+    .product-card img { filter: brightness(0.55) saturate(0.8); }
+  }
+  .product-colors {
+    display: flex; gap: 8px; margin-top: 12px;
+  }
+  .color-dot {
+    width: 14px; height: 14px; border-radius: 50%;
+    border: 1.5px solid rgba(255,255,255,0.3);
+  }
+  .product-number {
+    position: absolute; top: 18px; right: 20px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.68rem; font-weight: 700;
+    letter-spacing: 0.2em; color: var(--gold);
+    opacity: 0.7;
+  }
+
+  /* GALLERY */
+  .gallery { padding: 120px 40px; background: var(--warm-white); overflow: hidden; }
+  .gallery-inner { max-width: 1400px; margin: 0 auto; }
+  .gallery-track {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 12px;
+    margin-top: 56px;
+  }
+  .gallery-item {
+    overflow: hidden; position: relative;
+    aspect-ratio: 3/4;
+  }
+  .gallery-item:nth-child(2) { margin-top: 40px; }
+  .gallery-item:nth-child(4) { margin-top: 40px; }
+  .gallery-item img {
+    width: 100%; height: 100%; object-fit: cover;
+    transition: transform 0.6s ease, filter 0.5s;
+    filter: saturate(0.7);
+  }
+  .gallery-item:hover img { transform: scale(1.06); filter: saturate(1); }
+  .gallery-item::after {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(212,160,23,0.3), transparent);
+    opacity: 0; transition: opacity 0.4s;
+  }
+  .gallery-item:hover::after { opacity: 1; }
+
+  /* PATTERNS */
+  .patterns { padding: 120px 40px; background: var(--black); }
+  .patterns-inner { max-width: 1400px; margin: 0 auto; }
+  .patterns-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 24px; margin-top: 56px;
+  }
+  .pattern-card {
+    position: relative; overflow: hidden;
+    background: var(--stone);
+    border: 1px solid rgba(212,160,23,0.1);
+    transition: border-color 0.4s, transform 0.4s;
+  }
+  .pattern-card:hover {
+    border-color: rgba(212,160,23,0.5);
+    transform: translateY(-6px);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+  }
+  .pattern-card img { width: 100%; height: 220px; object-fit: cover; display: block; transition: transform 0.5s; }
+  .pattern-card:hover img { transform: scale(1.04); }
+  .pattern-label {
+    padding: 18px 20px; text-align: center;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.8rem; font-weight: 700;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    color: rgba(255,255,255,0.7);
+    transition: color 0.3s;
+  }
+  .pattern-card:hover .pattern-label { color: var(--gold); }
+
+  /* CONTACT */
+  .contact { padding: 120px 40px; background: var(--stone); }
+  .contact-inner {
+    max-width: 1400px; margin: 0 auto;
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 80px; align-items: start;
+  }
+  .contact-title { color: white; }
+  .contact-sub { font-size: 1.05rem; color: rgba(255,255,255,0.5); margin-bottom: 48px; font-weight: 300; }
+  .contact-detail {
+    display: flex; align-items: center; gap: 14px;
+    margin-bottom: 18px;
+    font-size: 1rem; color: rgba(255,255,255,0.75);
+    font-weight: 300;
+  }
+  .contact-detail a { color: rgba(255,255,255,0.75); text-decoration: none; transition: color 0.3s; cursor: none; }
+  .contact-detail a:hover { color: var(--gold); }
+  .contact-icon {
+    width: 38px; height: 38px;
+    background: rgba(212,160,23,0.1);
+    border: 1px solid rgba(212,160,23,0.25);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1rem; flex-shrink: 0;
+    transition: background 0.3s;
+  }
+  .contact-detail:hover .contact-icon { background: rgba(212,160,23,0.2); }
+  .contact-btns { display: flex; gap: 14px; margin-top: 36px; margin-bottom: 48px; flex-wrap: wrap; }
+  .btn-whatsapp {
+    background: #22C55E; color: white;
+    padding: 14px 28px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700; font-size: 0.82rem;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    text-decoration: none;
+    clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
+    transition: all 0.3s;
+  }
+  .btn-whatsapp:hover { background: #16A34A; transform: translateY(-2px); box-shadow: 0 8px 30px rgba(34,197,94,0.3); }
+  .btn-directions {
+    background: transparent; color: var(--gold);
+    border: 1.5px solid var(--gold);
+    padding: 14px 28px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700; font-size: 0.82rem;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    text-decoration: none;
+    clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
+    transition: all 0.3s;
+  }
+  .btn-directions:hover { background: var(--gold); color: var(--black); transform: translateY(-2px); }
+
+  /* FORM */
+  .contact-form { display: flex; flex-direction: column; gap: 16px; }
+  .form-input {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.12);
+    color: white; padding: 16px 20px;
+    font-family: 'Barlow', sans-serif;
+    font-size: 0.95rem; font-weight: 300;
+    outline: none; transition: border-color 0.3s, background 0.3s;
+    width: 100%;
+  }
+  .form-input::placeholder { color: rgba(255,255,255,0.3); }
+  .form-input:focus { border-color: var(--gold); background: rgba(212,160,23,0.05); }
+  textarea.form-input { height: 130px; resize: none; }
+
+  /* MAP */
+  .map-wrap {
+    border: 1px solid rgba(212,160,23,0.2);
+    overflow: hidden;
+    filter: grayscale(30%) contrast(1.05);
+    transition: filter 0.4s;
+  }
+  .map-wrap:hover { filter: grayscale(0%) contrast(1); }
+
+  /* FOOTER */
+  footer {
+    background: var(--black);
+    border-top: 1px solid rgba(212,160,23,0.2);
+    padding: 36px 40px; text-align: center;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.78rem; letter-spacing: 0.18em; text-transform: uppercase;
+    color: rgba(255,255,255,0.3);
+  }
+  footer span { color: var(--gold); }
+
+  /* WHATSAPP FLOAT */
+  .wa-float {
+    position: fixed; bottom: 30px; right: 30px; z-index: 200;
+    background: #22C55E;
+    width: 58px; height: 58px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 4px 20px rgba(34,197,94,0.4);
+    text-decoration: none;
+    transition: all 0.3s;
+    animation: waPulse 3s ease-in-out infinite;
+  }
+  .wa-float:hover { transform: scale(1.1); box-shadow: 0 8px 32px rgba(34,197,94,0.6); }
+  @keyframes waPulse {
+    0%, 100% { box-shadow: 0 4px 20px rgba(34,197,94,0.4), 0 0 0 0 rgba(34,197,94,0.3); }
+    50% { box-shadow: 0 4px 20px rgba(34,197,94,0.4), 0 0 0 14px rgba(34,197,94,0); }
+  }
+
+  /* ── INTRO LOADER ── */
+  #intro {
+    position: fixed; inset: 0; z-index: 10000;
+    background: var(--black);
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    overflow: hidden;
+  }
+  #intro.hide { pointer-events: none; }
+  .intro-panel {
+    position: absolute; left: 0; right: 0; height: 50%;
+    background: var(--black);
+    transition: transform 0.9s cubic-bezier(0.76, 0, 0.24, 1);
+    z-index: 2;
+  }
+  .intro-panel.top { top: 0; transform: translateY(0); }
+  .intro-panel.bottom { bottom: 0; transform: translateY(0); }
+  #intro.exit .intro-panel.top { transform: translateY(-100%); }
+  #intro.exit .intro-panel.bottom { transform: translateY(100%); }
+  .intro-content {
+    position: relative; z-index: 3;
+    display: flex; flex-direction: column; align-items: center;
+    text-align: center;
+  }
+  .intro-ring {
+    width: 72px; height: 72px; border-radius: 50%;
+    border: 2px solid rgba(212,160,23,0.2);
+    position: relative; margin-bottom: 28px;
+    animation: ringFade 0.6s 0.2s both ease;
+  }
+  .intro-ring::before {
+    content: ''; position: absolute; inset: -2px; border-radius: 50%;
+    border: 2px solid transparent; border-top-color: var(--gold);
+    animation: spinRing 1s linear infinite;
+  }
+  .intro-ring::after {
+    content: ''; position: absolute; inset: 10px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(212,160,23,0.15), transparent);
+  }
+  @keyframes spinRing { to { transform: rotate(360deg); } }
+  @keyframes ringFade { from { opacity:0; transform:scale(0.6); } to { opacity:1; transform:scale(1); } }
+  .intro-brand {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.2rem, 6vw, 4rem); font-weight: 900;
+    color: white; letter-spacing: 0.06em;
+    display: flex; gap: 0.5rem; flex-wrap: wrap; justify-content: center;
+  }
+  .intro-word { overflow: hidden; display: inline-block; }
+  .intro-word span {
+    display: inline-block;
+    transform: translateY(110%); opacity: 0;
+    animation: letterUp 0.7s cubic-bezier(0.22,1,0.36,1) forwards;
+  }
+  .intro-tagline {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.72rem; font-weight: 700;
+    letter-spacing: 0.32em; text-transform: uppercase;
+    color: var(--gold); margin-top: 14px;
+    opacity: 0; animation: fadeIn 0.5s 1.1s forwards;
+  }
+  .intro-bar-wrap {
+    width: 180px; height: 1.5px;
+    background: rgba(255,255,255,0.08);
+    margin-top: 32px; overflow: hidden;
+    opacity: 0; animation: fadeIn 0.4s 0.5s forwards;
+  }
+  .intro-bar {
+    height: 100%; width: 0%;
+    background: linear-gradient(90deg, var(--gold-dark), var(--gold-light));
+    transition: width 1.6s cubic-bezier(0.4,0,0.2,1);
+  }
+  .intro-bar.fill { width: 100%; }
+  .intro-counter {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.68rem; font-weight: 600;
+    letter-spacing: 0.22em; color: rgba(255,255,255,0.3);
+    margin-top: 10px;
+    opacity: 0; animation: fadeIn 0.4s 0.5s forwards;
+  }
+  @keyframes letterUp { to { transform: translateY(0); opacity: 1; } }
+  body.intro-active { overflow: hidden; }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(28px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; } to { opacity: 1; }
+  }
+
+  /* Reveal on scroll */
+  .reveal {
+    opacity: 0; transform: translateY(36px);
+    transition: opacity 0.75s ease, transform 0.75s ease;
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  .reveal-delay-1 { transition-delay: 0.1s; }
+  .reveal-delay-2 { transition-delay: 0.2s; }
+  .reveal-delay-3 { transition-delay: 0.32s; }
+  .reveal-delay-4 { transition-delay: 0.44s; }
+  .reveal-delay-5 { transition-delay: 0.56s; }
+
+  @media (max-width: 1024px) {
+    .about-inner, .contact-inner { grid-template-columns: 1fr; }
+    .products-grid { grid-template-columns: repeat(2, 1fr); }
+    .patterns-grid { grid-template-columns: repeat(2, 1fr); }
+    .gallery-track { grid-template-columns: repeat(3, 1fr); }
+    .gallery-item:nth-child(2), .gallery-item:nth-child(4) { margin-top: 0; }
+    .nav-links { display: none; }
+    .nav-cta { display: none; }
+    .hamburger { display: flex; }
+  }
+  @media (max-width: 640px) {
+    .products-grid, .patterns-grid { grid-template-columns: 1fr; }
+    .gallery-track { grid-template-columns: repeat(2, 1fr); }
+    .stats-inner { grid-template-columns: 1fr; }
+    .about { padding: 80px 24px; }
+    .products { padding: 80px 24px; }
+    .gallery { padding: 80px 24px; }
+    .patterns { padding: 80px 24px; }
+    .contact { padding: 80px 24px; }
+    .nav-inner { padding: 16px 20px; }
+    .hero-title { font-size: 3rem; }
+    .hero-sub { font-size: 0.95rem; }
+    .btn-primary, .btn-outline { padding: 14px 28px; font-size: 0.78rem; }
+    .section-title { font-size: 1.8rem; }
+    .product-card { aspect-ratio: 4/3; }
+    .contact-btns { flex-direction: column; }
+    .btn-whatsapp, .btn-directions { text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- INTRO LOADER -->
+<div id="intro">
+  <div class="intro-panel top"></div>
+  <div class="intro-panel bottom"></div>
+  <div class="intro-content">
+    <div class="intro-ring"></div>
+    <div class="intro-brand">
+      <div class="intro-word"><span style="animation-delay:0.35s">S</span><span style="animation-delay:0.42s">w</span><span style="animation-delay:0.49s">a</span><span style="animation-delay:0.56s">t</span><span style="animation-delay:0.63s">h</span><span style="animation-delay:0.70s">i</span></div>
+      <div class="intro-word"><span style="animation-delay:0.80s">E</span><span style="animation-delay:0.87s">n</span><span style="animation-delay:0.94s">t</span><span style="animation-delay:1.01s">e</span><span style="animation-delay:1.08s">r</span><span style="animation-delay:1.15s">p</span><span style="animation-delay:1.22s">r</span><span style="animation-delay:1.29s">i</span><span style="animation-delay:1.36s">s</span><span style="animation-delay:1.43s">e</span><span style="animation-delay:1.50s">s</span></div>
+    </div>
+    <div class="intro-tagline">Natural Stone &amp; Paver Manufacturer</div>
+    <div class="intro-bar-wrap"><div class="intro-bar" id="introBar"></div></div>
+    <div class="intro-counter" id="introCounter">0%</div>
+  </div>
+</div>
+
+<!-- CURSORS -->
+<div class="cursor" id="cursor"></div>
+<div class="cursor-follower" id="follower"></div>
+
+<!-- NAVBAR -->
+<nav id="navbar">
+  <div class="nav-inner">
+    <div class="nav-logo">
+      <img src="logo.png" alt="Swathi Enterprises Logo">
+      <span class="nav-brand">Swathi Enterprises</span>
+    </div>
+    <ul class="nav-links">
+      <li><a href="#">Home</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#products">Products</a></li>
+      <li><a href="#gallery">Gallery</a></li>
+      <li><a href="#patterns">Patterns</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <button class="nav-cta">Request Quote</button>
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- MOBILE NAV DRAWER -->
+<div class="mobile-nav" id="mobileNav">
+  <a href="#" onclick="closeMobileNav()">Home</a>
+  <a href="#about" onclick="closeMobileNav()">About</a>
+  <a href="#products" onclick="closeMobileNav()">Products</a>
+  <a href="#gallery" onclick="closeMobileNav()">Gallery</a>
+  <a href="#patterns" onclick="closeMobileNav()">Patterns</a>
+  <a href="#contact" onclick="closeMobileNav()">Contact</a>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg">
+    <img src="paver.jpg" alt="Paver background">
+  </div>
+  <div class="hero-overlay"></div>
+  <div class="hero-grain"></div>
+  <div class="hero-line"></div>
+  <div class="hero-content">
+    <p class="hero-eyebrow">Natural Stone & Paver Manufacturer</p>
+    <h1 class="hero-title">
+      Swathi<span>Enterprises</span>
+    </h1>
+    <div class="hero-divider"></div>
+    <p class="hero-sub">Crafting Durable Natural Stone for Modern Spaces</p>
+    <div class="hero-btns">
+      <a href="#products" class="btn-primary">Explore Products</a>
+      <a href="#contact" class="btn-outline">Get Quote</a>
+    </div>
+  </div>
+  <div class="hero-scroll">
+    <span>Scroll</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- STATS BAR -->
+<div class="stats-bar">
+  <div class="stats-inner">
+    <div class="stat-item reveal">
+      <div class="stat-num">20+</div>
+      <div class="stat-label">Years Experience</div>
+    </div>
+    <div class="stat-item reveal reveal-delay-2">
+      <div class="stat-num">500+</div>
+      <div class="stat-label">Projects Completed</div>
+    </div>
+    <div class="stat-item reveal reveal-delay-3">
+      <div class="stat-num">5+</div>
+      <div class="stat-label">Stone Types</div>
+    </div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="about-inner">
+    <div class="about-img-wrap reveal">
+      <div class="about-img-accent"></div>
+      <div class="about-img-accent2"></div>
+      <img src="logo.png" alt="Swathi Enterprises">
+    </div>
+    <div>
+      <p class="section-tag reveal">Who We Are</p>
+      <h2 class="section-title reveal reveal-delay-1">About Swathi<br>Enterprises</h2>
+      <p class="section-body reveal reveal-delay-2">
+        Swathi Enterprises is a trusted supplier of paver blocks and natural stones for government contracts, residential, commercial, and landscape projects.
+        We combine skilled craftsmanship with modern manufacturing technology to deliver durable and long-lasting stone solutions.
+      </p>
+      <p class="proprietor reveal reveal-delay-3">— Proprietor: <span>B. Murugan</span></p>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUCTS -->
+<section class="products" id="products">
+  <div class="products-inner">
+    <div class="section-header">
+      <p class="section-tag reveal" style="justify-content:center;">What We Make</p>
+      <h2 class="section-title reveal reveal-delay-1">Our Products</h2>
+    </div>
+    <div class="products-grid">
+
+      <div class="product-card reveal">
+        <img src="paver1.jpg" alt="Intac Paver Block">
+        <div class="product-number">01</div>
+        <div class="product-info">
+          <div class="product-name">Intac Paver Block</div>
+          <div class="product-desc">Heavy-duty interlocking paver block suitable for driveways, pathways and parking areas.</div>
+          <div class="product-colors">
+            <span class="color-dot" style="background:#1A1A1A;" title="Black"></span>
+            <span class="color-dot" style="background:#DC2626;" title="Red"></span>
+            <span class="color-dot" style="background:#EAB308;" title="Yellow"></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card reveal reveal-delay-2">
+        <img src="paver2.jpg" alt="Zig-Zag Paver Block">
+        <div class="product-number">02</div>
+        <div class="product-info">
+          <div class="product-name">Zig-Zag Paver Block</div>
+          <div class="product-desc">Strong zig-zag interlocking design ideal for high traffic areas and industrial spaces.</div>
+          <div class="product-colors">
+            <span class="color-dot" style="background:#1A1A1A;"></span>
+            <span class="color-dot" style="background:#DC2626;"></span>
+            <span class="color-dot" style="background:#EAB308;"></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card reveal reveal-delay-3">
+        <img src="paver3.jpg" alt="I Paver Block">
+        <div class="product-number">03</div>
+        <div class="product-info">
+          <div class="product-name">I Paver Block</div>
+          <div class="product-desc">Durable concrete paver used for pathways, landscaping and outdoor flooring.</div>
+          <div class="product-colors">
+            <span class="color-dot" style="background:#1A1A1A;"></span>
+            <span class="color-dot" style="background:#DC2626;"></span>
+            <span class="color-dot" style="background:#EAB308;"></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card reveal reveal-delay-1">
+        <img src="paver4.jpg" alt="Square Interlocking Block">
+        <div class="product-number">04</div>
+        <div class="product-info">
+          <div class="product-name">Square Interlocking Block</div>
+          <div class="product-desc">High-strength square paver block ideal for parking areas, walkways and residential spaces.</div>
+          <div class="product-colors">
+            <span class="color-dot" style="background:#1A1A1A;"></span>
+            <span class="color-dot" style="background:#DC2626;"></span>
+            <span class="color-dot" style="background:#EAB308;"></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card reveal reveal-delay-2">
+        <img src="paver5.jpg" alt="Interlocking Block">
+        <div class="product-number">05</div>
+        <div class="product-info">
+          <div class="product-name">Interlocking Block</div>
+          <div class="product-desc">Durable interlocking concrete block designed for roads, driveways and industrial flooring.</div>
+          <div class="product-colors">
+            <span class="color-dot" style="background:#1A1A1A;"></span>
+            <span class="color-dot" style="background:#DC2626;"></span>
+            <span class="color-dot" style="background:#EAB308;"></span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section class="gallery" id="gallery">
+  <div class="gallery-inner">
+    <p class="section-tag reveal">Behind The Scenes</p>
+    <h2 class="section-title reveal reveal-delay-1">Factory Gallery</h2>
+    <div class="gallery-track">
+      <div class="gallery-item reveal"><img src="factory1.jpg" alt="Factory 1"></div>
+      <div class="gallery-item reveal reveal-delay-1"><img src="factory2.jpg" alt="Factory 2"></div>
+      <div class="gallery-item reveal reveal-delay-2"><img src="factory3.jpg" alt="Factory 3"></div>
+      <div class="gallery-item reveal reveal-delay-3"><img src="factory4.jpg" alt="Factory 4"></div>
+      <div class="gallery-item reveal reveal-delay-4"><img src="factory5.jpg" alt="Factory 5"></div>
+    </div>
+  </div>
+</section>
+
+<!-- PATTERNS -->
+<section class="patterns" id="patterns">
+  <div class="patterns-inner">
+    <div class="section-header">
+      <p class="section-tag reveal">Design Options</p>
+      <h2 class="section-title reveal reveal-delay-1">Paver Block Patterns</h2>
+    </div>
+    <div class="patterns-grid">
+      <div class="pattern-card reveal"><img src="pattern1.jpg" alt="Intac Pattern"><div class="pattern-label">Intac Pattern</div></div>
+      <div class="pattern-card reveal reveal-delay-1"><img src="pattern2.jpg" alt="Zig-Zag Pattern"><div class="pattern-label">Zig-Zag Pattern</div></div>
+      <div class="pattern-card reveal reveal-delay-2"><img src="pattern3.jpg" alt="I-Pattern"><div class="pattern-label">I-Pattern</div></div>
+      <div class="pattern-card reveal reveal-delay-3"><img src="pattern4.jpg" alt="Mixed Pattern"><div class="pattern-label">Mixed Pattern</div></div>
+      <div class="pattern-card reveal reveal-delay-4"><img src="pattern5.jpg" alt="Rectangular Pattern"><div class="pattern-label">Rectangular Pattern</div></div>
+      <div class="pattern-card reveal reveal-delay-5"><img src="pattern6.jpg" alt="Square Pattern"><div class="pattern-label">Square Pattern</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="contact-inner">
+    <div>
+      <p class="section-tag reveal">Get In Touch</p>
+      <h2 class="section-title contact-title reveal reveal-delay-1">Contact Us</h2>
+      <p class="contact-sub reveal reveal-delay-2">Visit our factory or contact us for premium paver blocks.</p>
+
+      <div class="contact-detail reveal reveal-delay-2">
+        <div class="contact-icon">📍</div>
+        <span>Swathi Enterprises, Maiyur, Chengalpattu</span>
+      </div>
+      <div class="contact-detail reveal reveal-delay-3">
+        <div class="contact-icon">📞</div>
+        <a href="tel:+919994215321">+91 99942 15321</a>
+      </div>
+      <div class="contact-detail reveal reveal-delay-3">
+        <div class="contact-icon">📞</div>
+        <a href="tel:+917708870099">+91 77088 70099</a>
+      </div>
+
+      <div class="contact-btns reveal reveal-delay-4">
+        <a href="https://wa.me/917708870099?text=Hello%20I%20am%20interested%20in%20your%20paver%20blocks" target="_blank" class="btn-whatsapp">WhatsApp Enquiry</a>
+        <a href="https://maps.google.com/?q=Maiyur,Chengalpattu" target="_blank" class="btn-directions">Get Directions</a>
+      </div>
+
+      <form class="contact-form reveal reveal-delay-4">
+        <input type="text" class="form-input" placeholder="Your Name">
+        <input type="email" class="form-input" placeholder="Email">
+        <textarea class="form-input" placeholder="Message"></textarea>
+        <button type="button" class="btn-primary" style="align-self:flex-start;">Send Inquiry</button>
+      </form>
+    </div>
+
+    <div class="reveal reveal-delay-2">
+      <div class="map-wrap">
+        <iframe
+          src="https://www.google.com/maps?q=Swathi%20Enterprises,%20Maiyur,%20Pilappur,%20Tamil%20Nadu%20603111&output=embed"
+          style="width:100%; height:480px; border:0; display:block;"
+          loading="lazy">
+        </iframe>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2026 <span>Swathi Enterprises By B.Murgan</span>. All rights reserved.</p>
+</footer>
+
+<!-- WHATSAPP FLOAT -->
+<a href="https://wa.me/917708870099?text=Hello%20I%20am%20interested%20in%20your%20paver%20blocks"
+  target="_blank" class="wa-float" aria-label="WhatsApp">
+  <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="white" viewBox="0 0 24 24">
+    <path d="M20.52 3.48A11.91 11.91 0 0012.03 0C5.38 0 .01 5.37.01 12.02c0 2.12.55 4.19 1.6 6.02L0 24l6.14-1.6a11.99 11.99 0 005.89 1.5h.01c6.64 0 12.02-5.38 12.02-12.02 0-3.21-1.25-6.22-3.54-8.4z"/>
+  </svg>
+</a>
+
+<script>
+  // ── INTRO ANIMATION ──
+  document.body.classList.add('intro-active');
+  const intro = document.getElementById('intro');
+  const introBar = document.getElementById('introBar');
+  const introCounter = document.getElementById('introCounter');
+
+  // Start progress bar after short delay
+  setTimeout(() => {
+    introBar.classList.add('fill');
+  }, 600);
+
+  // Animate counter 0 → 100
+  let count = 0;
+  const counterTimer = setInterval(() => {
+    count = Math.min(count + 2, 100);
+    introCounter.textContent = count + '%';
+    if (count >= 100) clearInterval(counterTimer);
+  }, 32);
+
+  // After progress bar finishes (~2.4s total), trigger exit wipe
+  setTimeout(() => {
+    intro.classList.add('exit');
+    document.body.classList.remove('intro-active');
+    setTimeout(() => {
+      intro.classList.add('hide');
+      intro.style.display = 'none';
+    }, 950);
+  }, 2400);
+
+  // Hamburger menu
+  const hamburger = document.getElementById('hamburger');
+  const mobileNav = document.getElementById('mobileNav');
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('open');
+    mobileNav.classList.toggle('open');
+    document.body.style.overflow = mobileNav.classList.contains('open') ? 'hidden' : '';
+  });
+  function closeMobileNav() {
+    hamburger.classList.remove('open');
+    mobileNav.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  // Custom cursor
+  const cursor = document.getElementById('cursor');
+  const follower = document.getElementById('follower');
+  let fx = 0, fy = 0, cx = 0, cy = 0;
+  document.addEventListener('mousemove', e => {
+    cx = e.clientX; cy = e.clientY;
+    cursor.style.left = cx + 'px'; cursor.style.top = cy + 'px';
+  });
+  (function animFollower() {
+    fx += (cx - fx) * 0.12; fy += (cy - fy) * 0.12;
+    follower.style.left = fx + 'px'; follower.style.top = fy + 'px';
+    requestAnimationFrame(animFollower);
+  })();
+  document.querySelectorAll('a, button').forEach(el => {
+    el.addEventListener('mouseenter', () => {
+      cursor.style.width = '20px'; cursor.style.height = '20px';
+      follower.style.width = '56px'; follower.style.height = '56px'; follower.style.opacity = '0.35';
+    });
+    el.addEventListener('mouseleave', () => {
+      cursor.style.width = '12px'; cursor.style.height = '12px';
+      follower.style.width = '36px'; follower.style.height = '36px'; follower.style.opacity = '0.6';
+    });
+  });
+
+  // Navbar scroll effect
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 60);
+  });
+
+  // Scroll reveal
+  const revealEls = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+  }, { threshold: 0.12 });
+  revealEls.forEach(el => observer.observe(el));
+
+  // Counter animation
+  function animCount(el, target, suffix) {
+    let current = 0;
+    const step = Math.ceil(target / 60);
+    const timer = setInterval(() => {
+      current = Math.min(current + step, target);
+      el.textContent = current + suffix;
+      if (current >= target) clearInterval(timer);
+    }, 24);
+  }
+  const countObserver = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const el = e.target;
+        const text = el.textContent.trim();
+        const num = parseInt(text);
+        const suffix = text.replace(String(num), '');
+        animCount(el, num, suffix);
+        countObserver.unobserve(el);
+      }
+    });
+  }, { threshold: 0.5 });
+  document.querySelectorAll('.stat-num').forEach(el => countObserver.observe(el));
+</script>
+
+</body>
+</html>
